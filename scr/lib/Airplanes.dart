@@ -45,23 +45,23 @@ class Airplane {
   factory Airplane.fromJson(Map<String, dynamic> json) {
     Airplane a = new Airplane();
 
-    a.callsign = json['callsign'];
+    a.callsign = json['call_sign'];
     a.type = json['type'];
-    a.bew = json['bew'];
-    a.beArm = json['beArm'];
-    a.beMoment = json['beMoment'];
-    a.frontArm = json['frontArm'];
-    a.rearArm = json['rearArm'];
-    a.bagageArm = json['bagageArm'];
-    a.feulArm = json['feulArm'];
-    a.maxFuel = json['maxFuel'];
-    a.mrw = json['mrw'];
-    a.mtow = json['mtow'];
-    a.fwd = json['fwd'];
-    a.aft = json['aft'];
-    a.fwdW = json['fwdW'];
-    a.mtowFwd = json['mtowFwd'];
-    a.maxUtilW = json['maxUtilW'];
+    a.bew = json['bew'].toDouble();
+    a.beArm = json['beArm'].toDouble();
+    a.beMoment = json['beMoment'].toDouble();
+    a.frontArm = json['frontArm'].toDouble();
+    a.rearArm = json['rearArm'].toDouble();
+    a.bagageArm = json['bagageArm'].toDouble();
+    a.feulArm = json['feulArm'].toDouble();
+    a.maxFuel = json['maxFuel'].toDouble();
+    a.mrw = json['mrw'].toDouble();
+    a.mtow = json['mtow'].toDouble();
+    a.fwd = json['fwd'].toDouble();
+    a.aft = json['aft'].toDouble();
+    a.fwdW = json['fwdW'].toDouble();
+    a.mtowFwd = json['mtowFwd'].toDouble();
+    a.maxUtilW = json['maxUtilW'].toDouble();
     a.cgInc = 1;
     a.weightInc = 100;
 

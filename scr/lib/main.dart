@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'wbhome.dart';
+import 'start.dart';
 
-void main() => runApp(WBApp());
+void main() => runApp(MaterialApp(
+  title: "Weight and Balance",
+  home: WBApp(),
+));
 
 class WBApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -13,7 +17,15 @@ class WBApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
 
-      home: new WBHomePage(title: 'Weight and Balance Calculator'),
+      home: new WBStart(
+        airplaneSelected: (value) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) =>
+                  WBHomePage(title: 'Weight and Balance Calculator',
+                    airplane: value, )));
+        },
+      ),//new WBHomePage(title: 'Weight and Balance Calculator'),
     );
   }
 }

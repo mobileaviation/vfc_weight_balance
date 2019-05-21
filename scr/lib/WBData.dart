@@ -64,6 +64,7 @@ class WBData {
   UnitType get unit { return _unit; }
   UnitType _unit;
   String get title { return _title; }
+  set title(String newTitle) { _title = newTitle; }
   String _title;
   bool _visible;
   bool get visible { return _visible; }
