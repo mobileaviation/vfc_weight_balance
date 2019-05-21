@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'wbhome-content.dart';
+import 'Airplanes.dart';
 
 class WBHomePage extends StatelessWidget {
-  WBHomePage({Key key, this.title}) : super(key: key);
+  WBHomePage({Key key, this.title, this.airplane}) : super(key: key);
 
   String title;
+  Airplane airplane;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class WBHomePage extends StatelessWidget {
           backgroundColor: new Color(0xFF2979FF),
           centerTitle: true,
         ),
-        body: new WBHomepageContent(title: title,));
+        body: new WBHomepageContent(title: title, airplane: airplane,));
   }
 
 }

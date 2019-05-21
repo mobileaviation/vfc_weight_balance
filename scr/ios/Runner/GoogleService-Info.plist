@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>172428131882-m6jok2ntar9sq88qhuracmb7vmdkhueo.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.172428131882-m6jok2ntar9sq88qhuracmb7vmdkhueo</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBtjEMVkL-aIZJiY6n8LG75UbJkAGiDL4k</string>
+	<key>GCM_SENDER_ID</key>
+	<string>172428131882</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.mobileaviationtools.weightandbalance</string>
+	<key>PROJECT_ID</key>
+	<string>weightandbalance-a0909</string>
+	<key>STORAGE_BUCKET</key>
+	<string>weightandbalance-a0909.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:172428131882:ios:c6df48b362de84f7</string>
+	<key>DATABASE_URL</key>
+	<string>https://weightandbalance-a0909.firebaseio.com</string>
+</dict>
+</plist>

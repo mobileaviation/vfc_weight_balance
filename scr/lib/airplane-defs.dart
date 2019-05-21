@@ -1,7 +1,7 @@
 import 'Airplanes.dart';
 
 final String PHDRT = """{
-      "callsign": "PH-DRT",
+      "call_sign": "PH-DRT",
       "type": "P28A",
       "bew": 1617.0,
       "beArm": 88.87,

@@ -10,15 +10,20 @@ class CalculateWB {
   Airplane airplane;
 
   WBData calculateTakeoffWB(int taxiWBIndex) {
-    return _calculateWB(false, taxiWBIndex);
+    WBData wb = _calculateWB(false, taxiWBIndex);
+    wb.title = "Takeoff";
+    return wb;
   }
 
   WBData calculateZeroFuelWB() {
-    return _calculateWB(true, -1);
+    WBData wb = _calculateWB(true, -1);
+    wb.title = "Zero fuel";
+    return wb;
   }
 
   WBData calculateRampWB() {
-    return _calculateWB(false, -1);
+    WBData wb = _calculateWB(false, -1);
+    return wb;
   }
 
   WBData _calculateWB(bool zfw, int substracktIndex) {

@@ -6,10 +6,11 @@ import 'wbchart.dart';
 import 'WBData.dart';
 
 class WBChartHolder extends CustomPainter {
-  WBChartHolder(Airplane this.airplane, WBData this.takeoffWB) {}
+  WBChartHolder(Airplane this.airplane, WBData this.takeoffWB, WBData this.zeroFeulWB) {}
 
   Airplane airplane;
   WBData takeoffWB;
+  WBData zeroFeulWB;
 
   final int _padding = 8;
 
@@ -27,7 +28,7 @@ class WBChartHolder extends CustomPainter {
     double p = _getPadding(size);
     Rect chartRect = new Rect.fromLTWH(p, p, size.width - (p*2), size.height - (p*2));
 
-    WBChart chart = new WBChart(airplane, takeoffWB);
+    WBChart chart = new WBChart(airplane, takeoffWB, zeroFeulWB);
     chart.paint(canvas, chartRect);
   }
 

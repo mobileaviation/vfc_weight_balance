@@ -6,9 +6,10 @@ import 'package:angles/angles.dart';
 import 'WBData.dart';
 
 class WBChart {
-  WBChart(Airplane this.airplane, WBData this.takeoffWB);
+  WBChart(Airplane this.airplane, WBData this.takeoffWB, WBData this.zeroFeulWB);
   Airplane airplane;
   WBData takeoffWB;
+  WBData zeroFeulWB;
 
   double _weightToY(Rect rect, double weight) {
     double weightSize = (airplane.mtowRound() + airplane.weightInc) - (airplane.bewRound() - airplane.weightInc);
@@ -67,6 +68,22 @@ class WBChart {
     TextPainter tp = new TextPainter(text: span, textAlign: TextAlign.left, textDirection: TextDirection.ltr);
     tp.layout();
     tp.paint(canvas, position);
+
+  }
+
+  void _drawTopText(String text, double size, Rect rect, Canvas canvas)
+  {
+    TextSpan span = new TextSpan(style: new TextStyle(
+        color: Colors.black,
+        fontSize: size,
+        fontFamily: 'Oxygen',
+        fontWeight: FontWeight.bold,
+    ),
+        text: text);
+      TextPainter tp = new TextPainter(text: span, textAlign: TextAlign.center, textDirection: TextDirection.ltr);
+      tp.layout(minWidth: rect.width);
+      Offset p = _getAbsOffset(rect, 0, -27);
+      tp.paint(canvas, p);
   }
 
   void _drawWeightGrid(Rect rect, Canvas canvas)
@@ -130,7 +147,13 @@ class WBChart {
     Offset pos4 = _getOffset(rect, airplane.mtowFwd, airplane.mtow);
     Offset pos5 = _getOffset(rect, airplane.fwd, airplane.fwdW);
 
-    double util_fwd = airplane.fwd + ((airplane.mtow-airplane.fwdW) / ((airplane.maxUtilW-airplane.fwdW) * (airplane.mtowFwd-airplane.fwd)));
+    double a = airplane.mtow - airplane.fwdW;
+    double b = airplane.mtowFwd - airplane.fwd;
+    double d = airplane.maxUtilW - airplane.fwdW;
+    double util_fwd = (b / a) * d;
+    util_fwd = airplane.fwd + util_fwd;
+
+    //double util_fwd = airplane.fwd + ((airplane.mtow-airplane.fwdW) / ((airplane.maxUtilW-airplane.fwdW) * (airplane.mtowFwd-airplane.fwd)));
     Offset pos7 = _getOffset(rect, util_fwd, airplane.maxUtilW);
     Offset pos8 = _getOffset(rect, airplane.aft, airplane.maxUtilW);
 
@@ -149,6 +172,20 @@ class WBChart {
     canvas.drawRect(Rect.fromLTWH(pos7.dx-3, pos7.dy-3, 7, 7), evelopePaint);
     canvas.drawRect(Rect.fromLTWH(pos8.dx-3, pos8.dy-3, 7, 7), evelopePaint);
 
+  }
+
+  void _drawWbPosition(Canvas canvas, Rect rect, Color color, WBData wb) {
+    Offset t = _getOffset(rect, wb.arm, wb.weightLbs);
+    Paint wbPosPaint = new Paint()
+      ..color = color
+      ..style = PaintingStyle.fill
+      ..strokeWidth = .5;
+    canvas.drawCircle(t, 4, wbPosPaint);
+    wbPosPaint.style = PaintingStyle.stroke;
+    wbPosPaint.color = Colors.black;
+    canvas.drawCircle(t, 4, wbPosPaint);
+    Offset t1 = new Offset(t.dx + 7, t.dy - 5);
+    _drawText(wb.title, 10, t1, canvas);
   }
 
   void paint(Canvas canvas, Rect rect)
@@ -175,12 +212,13 @@ class WBChart {
     _drawEnvelope(rect, canvas);
 
     if (takeoffWB != null)
-    {
-      Offset t = _getOffset(rect, takeoffWB.arm, takeoffWB.weightLbs);
-      Paint takeoffPaint = new Paint()
-        ..color = Colors.green
-        ..strokeWidth = 1;
-      canvas.drawCircle(t, 5, takeoffPaint);
-    }
+      _drawWbPosition(canvas, rect, Color(0xFF00FF00), takeoffWB);
+
+    if (zeroFeulWB != null)
+      _drawWbPosition(canvas, rect, Color(0xFFFFC000), zeroFeulWB);
+
+    _drawTopText("Weight & Balance evelope: " + airplane.callsign, 11, rect, canvas);
   }
+
+
 }

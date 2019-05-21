@@ -8,42 +8,44 @@ import 'WBData.dart';
 import 'wb_table.dart';
 
 class WBHomepageContent extends StatefulWidget {
-  WBHomepageContent({Key key, this.title}) : super(key: key);
+  WBHomepageContent({Key key, this.title, this.airplane}) : super(key: key);
   String title;
+  Airplane airplane;
 
   @override
-  _HomeContentState createState() => _HomeContentState(title);
+  _HomeContentState createState() => _HomeContentState(title, airplane);
 }
 
 class _HomeContentState extends State<WBHomepageContent> {
-  _HomeContentState(String title) {
+  _HomeContentState(String title, Airplane airplane) {
     _title = title;
+    _airplane = airplane;
     _init();
   }
 
   String _title;
-  Airplane a;
+  Airplane _airplane;
   List<WBData> inputData;
   WBData _takeoffWB;
   WBData _zfwWB;
   WBData _rampWB;
 
   void _init(){
-    a = new Airplanes().getAirplaneByCallsign("PHDRT");
+    //a = widget.airplane;//new Airplanes().getAirplaneByCallsign("PHDRT");
     inputData = <WBData> [
-      WBData.weightKg(60, a.frontArm, WeightType.person, "Pilot:", true),
-      WBData.weightKg(60, a.frontArm, WeightType.person, "CoPilot:", true),
-      WBData.weightKg(0, a.rearArm, WeightType.person, "Pass1:", true),
-      WBData.weightKg(0, a.rearArm, WeightType.person, "Pass2:", true),
-      WBData.weightKg(15, a.bagageArm, WeightType.bagage, "Bagg:", true),
-      WBData.fuelGal(26, a.feulArm, "Fuel:", true),
-      WBData.fuelGal(2, a.feulArm, "Taxi fuel:", false),
+      WBData.weightKg(60, _airplane.frontArm, WeightType.person, "Pilot:", true),
+      WBData.weightKg(60, _airplane.frontArm, WeightType.person, "CoPilot:", true),
+      WBData.weightKg(0, _airplane.rearArm, WeightType.person, "Pass1:", true),
+      WBData.weightKg(0, _airplane.rearArm, WeightType.person, "Pass2:", true),
+      WBData.weightKg(15, _airplane.bagageArm, WeightType.bagage, "Bagg:", true),
+      WBData.fuelGal(26, _airplane.feulArm, "Fuel:", true),
+      WBData.fuelGal(2, _airplane.feulArm, "Taxi fuel:", false),
     ];
   }
 
   void _calc(List<WBData> data)
   {
-    CalculateWB calc = new CalculateWB(data, a);
+    CalculateWB calc = new CalculateWB(data, _airplane);
     setState(() {
       _takeoffWB = calc.calculateTakeoffWB(6);
       _zfwWB = calc.calculateZeroFuelWB();
@@ -70,11 +72,11 @@ class _HomeContentState extends State<WBHomepageContent> {
                         new Container(
                             color: Color(0xffCCFF66),
                             child: new CustomPaint(
-                              foregroundPainter: new WBChartHolder(a, _takeoffWB),)
+                              foregroundPainter: new WBChartHolder(_airplane, _takeoffWB, _zfwWB),)
                         ),
                         new WBTable(
                           inputData: inputData,
-                          airplane: a,
+                          airplane: _airplane,
                           zfwWB: _zfwWB,
                           rampWB: _rampWB,
                           takeoffWB: _takeoffWB,

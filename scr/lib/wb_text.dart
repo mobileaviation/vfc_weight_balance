@@ -16,12 +16,15 @@ Widget getText(String _title, double size) {
         style: TextStyle(
           fontSize: size,
           decoration: TextDecoration.none,
-          fontFamily: 'Oxygen',
+          fontFamily: 'Arial',
           fontWeight: FontWeight.normal,
+          color: Color(0xFF585858)
         ),
       )
   );
 }
+
+
 
   Widget getTextDialog(String _title) {
     return (
@@ -32,7 +35,7 @@ Widget getText(String _title, double size) {
             style: TextStyle(
               fontSize: 15.0,
               decoration: TextDecoration.none,
-              fontFamily: 'Oxygen',
+              fontFamily: 'Arial',
               fontWeight: FontWeight.normal,
             ),
           )
