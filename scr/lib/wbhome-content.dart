@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'wbchart-holder.dart';
 import 'Airplanes.dart';
@@ -6,6 +8,8 @@ import 'InputPart.dart';
 import 'calculate_wb.dart';
 import 'WBData.dart';
 import 'wb_table.dart';
+import 'export_pdf.dart';
+import 'dart:ui' as ui;
 
 class WBHomepageContent extends StatefulWidget {
   WBHomepageContent({Key key, this.title, this.airplane}) : super(key: key);
@@ -43,19 +47,36 @@ class _HomeContentState extends State<WBHomepageContent> {
     ];
   }
 
-  void _calc(List<WBData> data)
-  {
+  Future _calc(List<WBData> data)
+  async {
     CalculateWB calc = new CalculateWB(data, _airplane);
     setState(() {
       _takeoffWB = calc.calculateTakeoffWB(6);
       _zfwWB = calc.calculateZeroFuelWB();
       _rampWB = calc.calculateRampWB();
+      if (_takeoffWB != null) _storePdf();
     });
+  }
+
+  WBChartHolder _chartHolder;
+  WBChartHolder _getChartHolder()
+  {
+    _chartHolder =  new WBChartHolder(_airplane, _takeoffWB, _zfwWB);
+    return _chartHolder;
+  }
+
+  Future _storePdf() async {
+    PdfExport pdfExport = PdfExport();
+    Size s = new Size(350, 350);
+    WBChartHolder chart = new WBChartHolder(_airplane, _takeoffWB, _zfwWB);
+    ui.Image image = await chart.getImageData(_airplane, _takeoffWB, _zfwWB, s);
+    pdfExport.Generate(inputData, _airplane, _zfwWB, _takeoffWB, _rampWB, image);
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
+
+    Container container = new Container(
       child: new Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -72,7 +93,7 @@ class _HomeContentState extends State<WBHomepageContent> {
                         new Container(
                             color: Color(0xffCCFF66),
                             child: new CustomPaint(
-                              foregroundPainter: new WBChartHolder(_airplane, _takeoffWB, _zfwWB),)
+                              foregroundPainter: _getChartHolder(),)
                         ),
                         new WBTable(
                           inputData: inputData,
@@ -101,5 +122,6 @@ class _HomeContentState extends State<WBHomepageContent> {
         ],
       ),
     );
+    return container;
   }
 }
