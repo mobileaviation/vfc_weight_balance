@@ -35,7 +35,6 @@ class _HomeContentState extends State<WBHomepageContent> {
   WBData _rampWB;
 
   void _init(){
-    //a = widget.airplane;//new Airplanes().getAirplaneByCallsign("PHDRT");
     inputData = <WBData> [
       WBData.weightKg(60, _airplane.frontArm, WeightType.person, "Pilot:", true),
       WBData.weightKg(60, _airplane.frontArm, WeightType.person, "CoPilot:", true),
@@ -58,11 +57,9 @@ class _HomeContentState extends State<WBHomepageContent> {
     });
   }
 
-  WBChartHolder _chartHolder;
   WBChartHolder _getChartHolder()
   {
-    _chartHolder =  new WBChartHolder(_airplane, _takeoffWB, _zfwWB);
-    return _chartHolder;
+    return new WBChartHolder(_airplane, _takeoffWB, _zfwWB);
   }
 
   Future _storePdf() async {

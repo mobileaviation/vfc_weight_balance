@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:weight_and_balance/calculate_wb.dart';
+import 'calculate_wb.dart';
 import 'Airplanes.dart';
 import 'package:angles/angles.dart';
 import 'WBData.dart';

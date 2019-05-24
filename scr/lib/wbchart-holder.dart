@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:weight_and_balance/calculate_wb.dart';
+import 'calculate_wb.dart';
 import 'dart:ui';
 import 'Airplanes.dart';
 import 'wbchart.dart';

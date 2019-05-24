@@ -6,6 +6,7 @@
 #import <cloud_firestore/CloudFirestorePlugin.h>
 #import <firebase_core/FirebaseCorePlugin.h>
 #import <path_provider/PathProviderPlugin.h>
+#import <permission_handler/PermissionHandlerPlugin.h>
 
 @implementation GeneratedPluginRegistrant
 
@@ -13,6 +14,7 @@
   [FLTCloudFirestorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTCloudFirestorePlugin"]];
   [FLTFirebaseCorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseCorePlugin"]];
   [FLTPathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPathProviderPlugin"]];
+  [PermissionHandlerPlugin registerWithRegistrar:[registry registrarForPlugin:@"PermissionHandlerPlugin"]];
 }
 
 @end

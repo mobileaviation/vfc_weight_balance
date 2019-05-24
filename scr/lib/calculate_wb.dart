@@ -1,4 +1,4 @@
-import 'package:weight_and_balance/Airplanes.dart';
+import 'Airplanes.dart';
 import 'InputPart.dart';
 import 'conversions.dart';
 import 'WBData.dart';

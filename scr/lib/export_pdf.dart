@@ -4,9 +4,10 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 import 'Airplanes.dart';
 import 'dart:math';
-import 'package:path_provider/path_provider.dart';
+import 'package:path_provider/path_provider.dart' as path;
 import 'package:intl/intl.dart';
 import 'dart:ui' as ui;
+import 'package:permission_handler/permission_handler.dart' as perm;
 
 import 'WBData.dart';
 
@@ -61,11 +62,21 @@ class PdfExport {
 
   String _getDateFormated()
   {
+    return _getDateTimeFormat('dd MMMM yyyy');
+  }
+
+  String _getPdfFilename(){
+    return _getDateTimeFormat("yyyyMMddTHm") + "_" + airplane.callsign + ".pdf";
+  }
+
+  String _getDateTimeFormat(String format)
+  {
     var now = new DateTime.now();
-    var formatter = new DateFormat('dd MMMM yyyy');
+    var formatter = new DateFormat(format);
     String formatted = formatter.format(now);
     return formatted;
   }
+
 
   List<WBData> inputData;
   Airplane airplane;
@@ -159,11 +170,28 @@ class PdfExport {
     return ((value * roundFactor).round().toDouble() / roundFactor).toString();
   }
 
-  Future _savePdftoFile()
-  async {
-    Directory tempDir = await getTemporaryDirectory();
+  Future _savePdftoFile() async {
+    Directory tempDir = await path.getExternalStorageDirectory();
+    print(tempDir);
     String tempPath = tempDir.path;
-    var file = File("$tempPath/file.pdf");
-    await file.writeAsBytes(_pdf.save());
+    var file = File("$tempPath/Download/" + _getPdfFilename());
+
+    perm.PermissionStatus permissionStatus = await perm.PermissionHandler().checkPermissionStatus(perm.PermissionGroup.storage);
+    if (permissionStatus == perm.PermissionStatus.granted) {
+      print("Persmission was already granted, write file");
+      await _writeFile(file);
+    } else {
+      print("Storage access permissions denied!!");
+      await perm.PermissionHandler().requestPermissions([perm.PermissionGroup.storage]);
+      perm.PermissionStatus permissionStatus = await perm.PermissionHandler().checkPermissionStatus(perm.PermissionGroup.storage);
+      if (permissionStatus == perm.PermissionStatus.granted) {
+        print("Persmission granted, write file");
+        await _writeFile(file);
+      }
+    }
+  }
+
+  Future _writeFile(File file) async {
+    return await file.writeAsBytes(_pdf.save());
   }
 }

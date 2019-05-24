@@ -12,13 +12,8 @@ class WBStart extends StatefulWidget {
 }
 
 class _WBStartState extends State<WBStart> {
-//  _WBStartState() {
-//    _selected_airplane = "PH-DRT";
-//  }
-
   List<String> items = new List();
   Map<String, Airplane> _airplanes = new Map();
-  //String _value = "PH-DRT";
   String _selected_airplane;
 
   Widget _getDropdownButton(AsyncSnapshot snapshot)
@@ -81,7 +76,6 @@ class _WBStartState extends State<WBStart> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 getText("Select Airplane: ", 12),
-                //_getDropdownButton(),
                 _getFirebaseData(),
               ],
             ),

@@ -9,7 +9,6 @@ void main() => runApp(MaterialApp(
 ));
 
 class WBApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,7 +16,6 @@ class WBApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-
       home: new WBStart(
         airplaneSelected: (value) {
           Navigator.push(
@@ -26,7 +24,7 @@ class WBApp extends StatelessWidget {
                   WBHomePage(title: 'Weight and Balance Calculator',
                     airplane: value, )));
         },
-      ),//new WBHomePage(title: 'Weight and Balance Calculator'),
+      ),
     );
   }
 }
