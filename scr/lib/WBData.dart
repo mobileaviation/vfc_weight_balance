@@ -1,4 +1,5 @@
 import 'conversions.dart';
+import 'properties.dart';
 
 class WBData {
   WBData.totalWB(double weight, double arm)
@@ -70,6 +71,10 @@ class WBData {
   bool get visible { return _visible; }
 
   double get moment { return _weightLbs * _arm; }
+
+  Property _property;
+  Property get property { return _property; }
+  set property(Property p) { _property  = p; }
 }
 
 enum WeightType {

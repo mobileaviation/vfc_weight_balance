@@ -14,6 +14,7 @@ environment:
 
 dependencies:
 
+  sqflite: any
   permission_handler: ^3.1.0
   pdf: ^1.3.10
   path_provider: ^1.1.0
